@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import {Draggable} from 'react-beautiful-dnd';
 
 const TaskList = styled.div`
   width: 100%;
@@ -22,9 +23,16 @@ const TaskListText = styled.h6`
 
 function Task({task}) {
   return (
-    <TaskList>
-      <TaskListText>{task.content}</TaskListText>
+    // <TaskList>
+    //   <TaskListText>{task.content}</TaskListText>
+    // </TaskList>
+    <Draggable draggableId={task.id} index={React.index}>
+    {(provided, snapshot) => (
+    <TaskList ref={provided.innerRef} isDragging={snapshot.isDragging} {...provided.draggableProps} {...provided.dragHandleProps}>
+        <TaskListText>{task.content}</TaskListText>
     </TaskList>
+    )}
+</Draggable>
   );
 }
 
