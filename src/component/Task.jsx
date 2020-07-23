@@ -7,7 +7,7 @@ const TaskList = styled.div`
   background: #FFFFFF;
   border-radius: 10px;
   margin-bottom: 15px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: ${props => props.isDragging ? '0px 10px 20px rgba(0, 0, 0, 0.25)' : '0px 4px 4px rgba(0, 0, 0, 0.25)'};
   cursor: pointer;
 `
 
@@ -21,18 +21,15 @@ const TaskListText = styled.h6`
   text-transform: none;
 `
 
-function Task({task}) {
+function Task({task, index}) {
   return (
-    // <TaskList>
-    //   <TaskListText>{task.content}</TaskListText>
-    // </TaskList>
-    <Draggable draggableId={task.id} index={React.index}>
-    {(provided, snapshot) => (
-    <TaskList ref={provided.innerRef} isDragging={snapshot.isDragging} {...provided.draggableProps} {...provided.dragHandleProps}>
-        <TaskListText>{task.content}</TaskListText>
-    </TaskList>
-    )}
-</Draggable>
+    <Draggable draggableId={task.id} index={index}>
+      {(provided, snapshot) => (
+        <TaskList ref={provided.innerRef} isDragging={snapshot.isDragging} {...provided.draggableProps} {...provided.dragHandleProps}>
+          <TaskListText>{task.content}</TaskListText>
+        </TaskList>
+      )}
+    </Draggable>
   );
 }
 

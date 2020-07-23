@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Card from './component/Card';
 import styled from 'styled-components';
-import {InitialData} from './data/initialData';
+import {initialData} from './data/initialData.js';
 import {DragDropContext, Droppable} from 'react-beautiful-dnd';
 
 const Title = styled.h1`
@@ -20,9 +20,8 @@ const CardContainer = styled.div`
   margin-top: 25px;
 `
 
-
 const App = () => {
-  const [state, setState] = React.useState(InitialData);
+  const [state, setState] = useState(initialData);
 
   const onDragEnd = (result) => {
     const {draggableId, source, destination, type} = result;
@@ -97,15 +96,6 @@ const App = () => {
   return (
     <React.Fragment>
       <Title>Drag & Drop React JS</Title>
-      {/* <CardContainer>
-        {
-          state.cardOrder.map((cardId, index) => {
-            const card = state.cards[cardId];
-            const tasks = card.taskIds.map(taskId => state.tasks[taskId]);
-            return <Card key={cardId} card={card} tasks={tasks} index={index} />
-          })
-        }
-      </CardContainer> */}
       <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId="all-cards" direction="horizontal" type="card">
             {(provided) => (
